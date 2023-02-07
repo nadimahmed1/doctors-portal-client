@@ -1,6 +1,5 @@
 [
     {
-        "_id": 1,
         "name": "Teeth Orthodontics",
         "slots": [
             "8.00 AM - 8.30 AM",
@@ -11,7 +10,6 @@
         ]
     },
     {
-        "_id": 2,
         "name": "Teeth Orthodontics",
         "slots": [
             "2.00 PM - 2.30 PM",
@@ -22,7 +20,6 @@
         ]
     },
     {
-        "_id": 3,
         "name": "Teeth Orthodontics",
         "slots": [
             "2.00 PM - 2.30 PM",
@@ -33,7 +30,6 @@
         ]
     },
     {
-        "_id": 4,
         "name": "Teeth Orthodontics",
         "slots": [
             "2.00 PM - 2.30 PM",
@@ -44,7 +40,6 @@
         ]
     },
     {
-        "_id": 5,
         "name": "Teeth Orthodontics",
         "slots": [
             "2.00 PM - 2.30 PM",
@@ -55,7 +50,6 @@
         ]
     },
     {
-        "_id": 6,
         "name": "Teeth Orthodontics",
         "slots": [
             "2.00 PM - 2.30 PM",
@@ -66,12 +60,10 @@
         ]
     },
     {
-        "_id": 7,
         "name": "Teeth Orthodontics",
         "slots": []
     },
     {
-        "_id": 8,
         "name": "Teeth Orthodontics",
         "slots": [
             "2.00 PM - 2.30 PM",
@@ -82,7 +74,6 @@
         ]
     },
     {
-        "_id": 9,
         "name": "Teeth Orthodontics",
         "slots": [
             "2.00 PM - 2.30 PM",
@@ -93,7 +84,6 @@
         ]
     },
     {
-        "_id": 10,
         "name": "Teeth Orthodontics",
         "slots": [
             "2.00 PM - 2.30 PM",
@@ -104,12 +94,10 @@
         ]
     },
     {
-        "_id": 11,
         "name": "Teeth Orthodontics",
         "slots": []
     },
     {
-        "_id": 12,
         "name": "Teeth Orthodontics",
         "slots": [
             "2.00 PM - 2.30 PM",
