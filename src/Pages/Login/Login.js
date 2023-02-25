@@ -1,10 +1,13 @@
 import React from 'react';
 import auth from '../Appointment/firebase.init';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useForm } from "react-hook-form";
 
 
 const Login = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    const onSubmit = (data) => console.log(data);
 
     if (user) {
         console.log(user);
@@ -14,8 +17,68 @@ const Login = () => {
             <div class="card w-96 bg-base-100 shadow-xl ">
                 <div class="card-body">
                     <h2 class="text-center text-2xl font-bold">Login</h2>
+
+                    <form onSubmit={handleSubmit(onSubmit)}>
+
+                        <div class="form-control w-full max-w-xs">
+                            <label class="label">
+                                <span class="label-text">Your Email</span>
+
+                            </label>
+                            <input type="email" placeholder="Your Email"
+                                class="input input-bordered w-full max-w-xs"
+                                {...register("email", {
+                                    required: {
+                                        value: true,
+                                        message: 'email is required'
+                                    },
+                                    pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
+                                })}
+                            />
+                            <label class="label">
+                                {errors.email?.type === 'required' && <p role="alert"><span className='text-red-500'>{errors.email.message}</span></p>}
+                                {errors.email?.type === 'minLength' && <p role="alert"><span className='text-red-500'>{errors.email.message}</span></p>}
+
+                            </label>
+                        </div>
+                        <div class="form-control w-full max-w-xs">
+                            <label class="label">
+                                <span class="label-text">Your Password</span>
+
+                            </label>
+                            <input type="password" placeholder="Your Password"
+                                class="input input-bordered w-full max-w-xs"
+                                {...register("password", {
+                                    required: {
+                                        value: true,
+                                        message: 'password is required'
+                                    },
+                                    minLength: {
+                                        value: 6,
+                                        message: 'must be a 6 charecter or longer'
+                                    }
+                                })}
+                            />
+                            <label class="label">
+                                {errors.password?.type === 'required' && <p role="alert"><span className='text-red-500'>{errors.password.message}</span></p>}
+                                {errors.password?.type === 'minLength' && <p role="alert"><span className='text-red-500'>{errors.password.message}</span></p>}
+
+                            </label>
+                        </div>
+
+                        <input
+
+                            aria-invalid={errors.firstName ? "true" : "false"}
+                        />
+
+
+
+
+                        <input className='btn w-full max-w-xs' type="submit" value={'Login'} />
+                    </form>
+
                     <div class="divider">OR</div>
-                    <button onClick={() => signInWithGoogle()} class="btn">Button</button>
+                    <button onClick={() => signInWithGoogle()} class="btn">Continue with Google</button>
 
 
                 </div>
