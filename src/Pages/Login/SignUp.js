@@ -1,20 +1,19 @@
 import React from 'react';
 import auth from '../Appointment/firebase.init';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
 import { Link } from 'react-router-dom';
 
-
-const Login = () => {
+const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [
-        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
         user,
         loading,
         error,
-    ] = useSignInWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth);
 
     if (loading || googleLoading) {
         return <Loading></Loading>
@@ -27,7 +26,7 @@ const Login = () => {
 
     const onSubmit = (data) => {
         console.log(data);
-        signInWithEmailAndPassword(data.email, data.password)
+        createUserWithEmailAndPassword(data.email, data.password)
     }
 
 
@@ -39,9 +38,31 @@ const Login = () => {
         <div className='flex justify-center items-center h-screen'>
             <div class="card w-96 bg-base-100 shadow-xl ">
                 <div class="card-body">
-                    <h2 class="text-center text-2xl font-bold">Login</h2>
+                    <h2 class="text-center text-2xl font-bold">Sign Up</h2>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
+
+                        <div class="form-control w-full max-w-xs">
+                            <label class="label">
+                                <span class="label-text">Your Name</span>
+
+                            </label>
+                            <input type="name" placeholder="Your name"
+                                class="input input-bordered w-full max-w-xs"
+                                {...register("name", {
+                                    required: {
+                                        value: true,
+                                        message: 'Name is required'
+                                    }
+
+                                })}
+                            />
+                            <label class="label">
+                                {errors.name?.type === 'required' && <p role="alert"><span className='text-red-500'>{errors.name.message}</span></p>}
+
+
+                            </label>
+                        </div>
 
                         <div class="form-control w-full max-w-xs">
                             <label class="label">
@@ -99,9 +120,9 @@ const Login = () => {
 
 
 
-                        <input className='btn w-full max-w-xs' type="submit" value={'Login'} />
+                        <input className='btn w-full max-w-xs' type="submit" value={'Sign Up'} />
                     </form>
-                    <small>New to Doctors Portal <Link to={'/signUp'}><small className='text-primary'>Please Create a Account</small></Link></small>
+                    <small>Already have an account <Link to={'/Login'}><small className='text-primary'>Please Login first</small></Link></small>
 
                     <div class="divider">OR</div>
                     <button onClick={() => signInWithGoogle()} class="btn">Continue with Google</button>
@@ -113,4 +134,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default SignUp;
