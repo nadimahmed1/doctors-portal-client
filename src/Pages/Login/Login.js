@@ -1,13 +1,35 @@
 import React from 'react';
 import auth from '../Appointment/firebase.init';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
+import Loading from '../Shared/Loading';
 
 
 const Login = () => {
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const onSubmit = (data) => console.log(data);
+    const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
+
+    if (loading || googleLoading) {
+        return <Loading></Loading>
+    }
+
+    let signInError;
+    if (error || googleError) {
+        signInError = <p className='text-red-500'>{error.message}</p>
+    }
+
+    const onSubmit = (data) => {
+        console.log(data);
+        signInWithEmailAndPassword(data.email, data.password)
+    }
+
+
 
     if (user) {
         console.log(user);
@@ -72,7 +94,7 @@ const Login = () => {
                         />
 
 
-
+                        {signInError}
 
                         <input className='btn w-full max-w-xs' type="submit" value={'Login'} />
                     </form>
