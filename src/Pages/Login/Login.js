@@ -3,7 +3,7 @@ import auth from '../Appointment/firebase.init';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -15,6 +15,9 @@ const Login = () => {
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
+
+    let navigate = useNavigate();
+    let location = useLocation();
 
     if (loading || googleLoading) {
         return <Loading></Loading>
@@ -30,10 +33,12 @@ const Login = () => {
         signInWithEmailAndPassword(data.email, data.password)
     }
 
+    let from = location.state?.from?.pathname || "/";
 
 
-    if (user) {
+    if (user || googleUser) {
         console.log(user);
+        navigate(from, { replace: true });
     }
     return (
         <div className='flex justify-center items-center h-screen'>
